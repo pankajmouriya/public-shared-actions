@@ -1,0 +1,17 @@
+name: Semgrep SAST
+description: Semgrep SAST
+author: 'Kong'
+
+
+runs:
+  using: composite
+  steps:
+
+    - name: SAST Scan
+      # TODO: Define a tagging mechanism for dependency manager version updates 
+      # Also for controlled rollouts
+      uses: docker://418272760313.dkr.ecr.us-east-1.amazonaws.com/k-internal/semgrep/semgrep:1.104.0
+      with:
+        entrypoint: semgrep
+        args:
+          ci --config auto --sarif -o semgrep_${{ github.sha }}.sarif --no-autofix ${{ inputs.additional_config }}

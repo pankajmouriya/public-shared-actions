@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "security-actions/semgrep/run-semgrep/action.yml"
+      ],
+      "matchStrings": [
+        "semgrep\\/semgrep:(?<currentValue>[\\d\\.]+)"
+      ],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "semgrep/semgrep"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Fetch updates for ECR semgrep image from Docker Hub",
+      "matchPackageNames": [
+        "semgrep/semgrep"
+      ],
+      "versioning": "docker"
+    }
+  ]
+}
