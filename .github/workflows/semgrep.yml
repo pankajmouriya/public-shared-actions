@@ -20,7 +20,7 @@ jobs:
       actions: read
       contents: read
     env:
-      TEST_REPOSITORY: "${{github.repository_owner}}/Gigarepo"
+      TEST_REPOSITORY: "${{github.repository_owner}}/rust"
     if: (github.actor != 'dependabot[bot]')
 
     steps:
