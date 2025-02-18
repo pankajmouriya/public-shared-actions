@@ -19,8 +19,9 @@ jobs:
       # only required for workflows in private repositories
       actions: read
       contents: read
+      id-token: write
     env:
-      TEST_REPOSITORY: "${{github.repository_owner}}/atc-router"
+      TEST_REPOSITORY: "${{github.repository_owner}}/rust"
     if: (github.actor != 'dependabot[bot]')
 
     steps:
