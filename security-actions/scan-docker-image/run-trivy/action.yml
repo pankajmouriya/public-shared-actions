@@ -52,5 +52,5 @@ runs:
         TRIVY_IGNORE_UNFIXED: ${{ inputs.ignore_unfixed }}
         TRIVY_COMPLIANCE: docker-cis-1.6.0
         TRIVY_EXIT_CODE: ${{ inputs.fail_build == 'true' && '1' || '0' }}
-        TRIVY_DB_REPOSITORY: 418272760313.dkr.ecr.us-east-1.amazonaws.com/ghcr/aquasecurity/trivy-db:2
+        TRIVY_DB_REPOSITORY: 418272760313.dkr.ecr.us-east-1.amazonaws.com/ghcr/aquasecurity/trivy-db:1
         TRIVY_SKIP_CHECK_UPDATE: 'true'
