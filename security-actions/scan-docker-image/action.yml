@@ -353,18 +353,12 @@ runs:
     - name: Generate docker-cis JSON report
       if: ${{ inputs.skip_cis_scan != 'true' && steps.meta.outputs.scan_image != '' }}
       id: cis_json
-      shell: bash
-      run: |
-        trivy image ${{ env.input }} \
-          ${{ steps.meta.outputs.scan_image }} \
-          --compliance ${{ env.compliance }} \
-          -f json \
-          --ignore-unfixed \
-          -o ${{ steps.meta.outputs.cis_json_file }} \
-          ${{ inputs.trivy_db_cache != '' && '--cache-dir ~/.cache/trivy --skip-db-update' || '' }}
-      env:
-        compliance: docker-cis-1.6.0
-        input: ${{ steps.docker_tar.outputs.files_exists == 'true' && '--input' || '' }}
+      uses: ./security-actions/scan-docker-image/run-trivy
+      with:
+        scan_image: ${{ steps.meta.outputs.scan_image }}
+        output_format: json
+        output_file: ${{ steps.meta.outputs.cis_json_file }}
+        ignore_unfixed: 'true'
 
     - name: upload docker-cis JSON report
       if: ${{ inputs.skip_cis_scan != 'true' && steps.meta.outputs.scan_image != '' }}
