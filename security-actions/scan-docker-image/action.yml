@@ -98,6 +98,21 @@ runs:
         ASSET_PREFIX: ${{ inputs.asset_prefix }}
       run: $GITHUB_ACTION_PATH/scripts/scan-metadata.sh
 
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      id: creds
+      with:
+        aws-region: us-east-1
+        role-to-assume: arn:aws:iam::418272760313:role/ecr-identity-provider-role
+        role-session-name: GitHub_to_AWS_via_FederatedOIDC
+
+    - name: Login to ECR
+      uses: docker/login-action@v3
+      with:
+        registry: 418272760313.dkr.ecr.us-east-1.amazonaws.com
+        username: ${{ steps.creds.outputs.aws-access-key-id }}
+        password: ${{ steps.creds.outputs.aws-secret-access-key }}
+
     # Must upload artifact for output file parameter to have effect
     - name: Generate SPDX SBOM Using Syft
       uses: anchore/sbom-action@55dc4ee22412511ee8c3142cbea40418e6cec693 # v0.17.8
