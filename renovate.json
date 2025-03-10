@@ -14,17 +14,6 @@
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "semgrep/semgrep"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "security-actions/scan-docker-image/run-trivy/action.yml"
-      ],
-      "matchStrings": [
-        "TRIVY_DB_REPOSITORY:\\s*[\\w\\d./:-]+trivy-db:(\\d+)"
-      ],
-      "datasourceTemplate": "docker",
-      "depNameTemplate": "ghcr.io/aquasecurity/trivy-db"
     }
   ],
   "packageRules": [
@@ -32,13 +21,6 @@
       "description": "Fetch updates for ECR semgrep image from Docker Hub",
       "matchPackageNames": [
         "semgrep/semgrep"
-      ],
-      "versioning": "docker"
-    },
-    {
-      "description": "Fetch updates for ECR semgrep image from Docker Hub",
-      "matchPackageNames": [
-        "ghcr.io/aquasecurity/trivy-db"
       ],
       "versioning": "docker"
     }
