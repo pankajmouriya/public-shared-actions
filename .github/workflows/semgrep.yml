@@ -26,6 +26,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+        with:
+          repository: ${{env.TEST_REPOSITORY}}
+          token: ${{secrets.GITHUB_TOKEN}}
+          path: ${{env.TEST_REPOSITORY}}
       - uses: ./security-actions/semgrep
         with:
           additional_config: '--config p/rust'
