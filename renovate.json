@@ -6,8 +6,7 @@
     {
       "customType": "regex",
       "fileMatch": [
-        "security-actions/semgrep/run-semgrep/action.yml",
-        "security-actions/scan-docker-image/run-trivy/action.yml"
+        "security-actions/semgrep/run-semgrep/action.yml"
       ],
       "matchStrings": [
         "semgrep\\/semgrep:(?<currentValue>[\\d\\.]+)"
@@ -21,7 +20,7 @@
         "security-actions/scan-docker-image/run-trivy/action.yml"
       ],
       "matchStrings": [
-        "TRIVY_DB_REPOSITORY:\\s*[\\w\\d./:-]+trivy-db:(?<currentValue>\\d+)"
+        "TRIVY_DB_REPOSITORY:\\s*[^:\\s]+/ghcr/aquasecurity/trivy-db:(?<currentValue>\\d+)"
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "ghcr.io/aquasecurity/trivy-db"
