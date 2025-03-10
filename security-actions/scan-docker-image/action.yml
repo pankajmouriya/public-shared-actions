@@ -375,18 +375,11 @@ runs:
           ${{ steps.meta.outputs.cis_json_file }}
         if-no-files-found: warn
 
-    - name: Inspect docker-cis report
+    - name: Inspect docker-cis report (Table)
       if: ${{ inputs.skip_cis_scan != 'true' && steps.meta.outputs.scan_image != '' }}
-      shell: bash
-      run: |
-        trivy image ${{ env.input }} \
-          ${{ steps.meta.outputs.scan_image }} \
-          --compliance ${{ env.compliance }} \
-          -f table \
-          --ignore-unfixed \
-          --exit-code ${{ env.exit-code }} \
-          ${{ inputs.trivy_db_cache != '' && '--cache-dir ~/.cache/trivy --skip-db-update' || '' }}
-      env:
-        exit-code: ${{ (steps.meta.outputs.global_enforce_build_failure == 'true' || inputs.fail_build == 'true') && '1' || '0' }}
-        compliance: docker-cis-1.6.0
-        input: ${{ steps.docker_tar.outputs.files_exists == 'true' && '--input' || '' }}
+      uses: ./security-actions/scan-docker-image/run-trivy
+      with:
+        scan_image: ${{ steps.meta.outputs.scan_image }}
+        output_format: table
+        fail_build: 'true'
+        ignore_unfixed: 'true'
