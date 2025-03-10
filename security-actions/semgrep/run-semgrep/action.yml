@@ -10,7 +10,7 @@ runs:
     - name: SAST Scan
       # TODO: Define a tagging mechanism for dependency manager version updates 
       # Also for controlled rollouts
-      uses: docker://418272760313.dkr.ecr.us-east-1.amazonaws.com/ghcr/aquasecurity/trivy-db:1
+      uses: docker://418272760313.dkr.ecr.us-east-1.amazonaws.com/k-internal/semgrep/semgrep:1.104.0
       with:
         entrypoint: semgrep
         args:
