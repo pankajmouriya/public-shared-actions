@@ -20,10 +20,11 @@
         "security-actions/scan-docker-image/run-trivy/action.yml"
       ],
       "matchStrings": [
-        "TRIVY_DB_REPOSITORY:\\s*[^:\\s]+/ghcr/aquasecurity/trivy-db:(?<currentValue>\\d+)"
+        "TRIVY_DB_REPOSITORY:\\s*[^\\s]+/ghcr/aquasecurity/trivy-db:(?<currentValue>\\d+)"
       ],
       "datasourceTemplate": "docker",
-      "depNameTemplate": "ghcr.io/aquasecurity/trivy-db"
+      "depNameTemplate": "ghcr.io/aquasecurity/trivy-db",
+      "extractVersionTemplate": "$currentValue"
     }
   ],
   "packageRules": [
