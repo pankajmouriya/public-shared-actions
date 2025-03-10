@@ -23,7 +23,8 @@
         "ghcr/aquasecurity/trivy-db:(?<currentValue>\\d+)"
       ],
       "datasourceTemplate": "docker",
-      "depNameTemplate": "ghcr.io/aquasecurity/trivy-db"
+      "depNameTemplate": "ghcr.io/aquasecurity/trivy-db",
+      "extractVersionTemplate": "^(?:@{{{depName}}}@|v)?(?<version>[0-9\\.]+)$"
     }
   ],
   "packageRules": [
