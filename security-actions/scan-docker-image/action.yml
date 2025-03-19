@@ -1,4 +1,4 @@
-name: Docker SCA and CIS scan test
+name: Docker SCA and CIS scan
 description: Generates SBOM and vulnerabiity report
 author: 'Kong'
 inputs:
