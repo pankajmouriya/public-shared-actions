@@ -14,6 +14,7 @@
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "semgrep/semgrep",
+      "extractVersionTemplate": "^v?(?<version>[0-9]+\\.[0-9]+\\.[0-9]+)$",
       "autoReplaceStringTemplate": "semgrep/semgrep@{{{newDigest}}}",
       "versioningTemplate": "semver"
     }
