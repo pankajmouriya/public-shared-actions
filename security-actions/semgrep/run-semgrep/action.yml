@@ -10,7 +10,7 @@ runs:
     - name: SAST Scan
       # TODO: Define a tagging mechanism for dependency manager version updates 
       # Also for controlled rollouts
-      uses: docker://418272760313.dkr.ecr.us-east-1.amazonaws.com/k-internal/semgrep/semgrep@sha256:0cd75960cfec2215ff734a4f6379bbbb6edb82de0c24593dd0a70ec65e9860a9 # 1.114.0
+      uses: docker://418272760313.dkr.ecr.us-east-1.amazonaws.com/k-internal/semgrep/semgrep@sha256:3e6e5065d9e68abffddffdb536a8db2d79a8fa92dc424daa48d3a4b7d9bc65d0 # 1.111.0
       with:
         entrypoint: semgrep
         args:
