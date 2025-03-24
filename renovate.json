@@ -25,7 +25,8 @@
       "matchPackageNames": [
         "semgrep/semgrep"
       ],
-      "versioning": "docker"
+      "versioning": "docker",
+      "pinDigests": true
     }
   ]
 }
