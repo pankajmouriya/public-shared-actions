@@ -4,15 +4,19 @@
   ],
   "customManagers": [
     {
+      "description": "Updates semgrep Docker images with both version and digest formats",
       "customType": "regex",
       "fileMatch": [
         "security-actions/semgrep/run-semgrep/action.yml"
       ],
       "matchStrings": [
-        "semgrep\\/semgrep:(?<currentValue>[\\d\\.]+)"
+        "semgrep\\/semgrep:(?<currentValue>[\\d\\.]+)",
+        "semgrep\\/semgrep@(?:(?<currentDigest>sha256:[a-f0-9]{64}) # )?(?<currentValue>[\\d\\.]+)"
       ],
       "datasourceTemplate": "docker",
-      "depNameTemplate": "semgrep/semgrep"
+      "depNameTemplate": "semgrep/semgrep",
+      "autoReplaceStringTemplate": "semgrep/semgrep{{#if newDigest}}@{{{newDigest}}} # {{else}}:{{/if}}{{{newVersion}}}",
+      "versioningTemplate": "docker"
     }
   ],
   "packageRules": [
