@@ -14,18 +14,8 @@
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "semgrep/semgrep",
-      "autoReplaceStringTemplate": "semgrep/semgrep@{{{newDigest}}}",
+      "autoReplaceStringTemplate": "semgrep/semgrep@sh256:{{{newDigest}}}",
       "versioningTemplate": "docker"
-    }
-  ],
-  "packageRules": [
-    {
-      "description": "Fetch updates for ECR semgrep image from Docker Hub",
-      "matchPackageNames": [
-        "semgrep/semgrep"
-      ],
-      "versioning": "docker",
-      "pinDigests": true
     }
   ]
 }
