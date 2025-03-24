@@ -14,7 +14,7 @@
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "semgrep/semgrep",
-      "autoReplaceStringTemplate": "semgrep/semgrep{{#if newDigest}}@{{{newDigest}}} # {{else}}:{{/if}}{{{newVersion}}}",
+      "autoReplaceStringTemplate": "semgrep/semgrep@{{{newDigest}}}",
       "versioningTemplate": "docker"
     }
   ],
