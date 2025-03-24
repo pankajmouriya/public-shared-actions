@@ -9,7 +9,7 @@
         "security-actions/semgrep/run-semgrep/action.yml"
       ],
       "matchStrings": [
-        "semgrep\\/semgrep:(?<currentValue>[\\d\\.]+)"
+        "semgrep/semgrep@sha256:(?<currentDigest>[a-fA-F0-9]{64})"
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "semgrep/semgrep"
