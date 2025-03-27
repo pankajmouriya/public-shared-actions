@@ -67,7 +67,12 @@ inputs:
     options:
       - 'true'
       - 'false'
-
+  trivy_db_cache:
+    description: 'GitHub repository containing Trivy DB cache (format: owner/repo@ref). Database should be named `db.tar.gz` on the default branch.'
+    required: false
+  trivy_db_cache_token:
+    description: 'Token for accessing `trivy_db_cache`.'
+    required: false
 
 outputs:
   cis-json-report:
@@ -318,6 +323,46 @@ runs:
       with:
         files: "${{ steps.meta.outputs.scan_image }}"
 
+    - name: Parse Trivy DB cache input
+      if: inputs.trivy_db_cache != ''
+      shell: bash
+      id: parse_cache
+      run: |
+        REPO=$(echo "${{ inputs.trivy_db_cache }}" | cut -d'@' -f1)
+        REF=$(echo "${{ inputs.trivy_db_cache }}" | cut -d'@' -f2)
+        echo "repository=${REPO}" >> $GITHUB_OUTPUT
+        echo "ref=${REF}" >> $GITHUB_OUTPUT
+
+      # Issue: https://github.com/aquasecurity/trivy/issues/7938
+      # Discussion: https://github.com/aquasecurity/trivy/discussions/7668
+      # Fix: Refer https://github.com/aquasecurity/trivy/discussions/7951 usign mirror.gcr.io 
+    - name: Install Trivy
+      shell: bash
+      run: |
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.58.2
+
+    - name: Checkout Trivy DB cache
+      if: inputs.trivy_db_cache != ''
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      with:
+        repository: ${{ steps.parse_cache.outputs.repository }}
+        ref: ${{ steps.parse_cache.outputs.ref }}
+        path: trivy-db-cache
+        token: ${{ inputs.trivy_db_cache_token }}
+
+    - name: Setup Trivy DB from cache
+      if: inputs.trivy_db_cache != ''
+      shell: bash
+      run: |
+        # Create Trivy cache directory
+        mkdir -p ~/.cache/trivy/db
+        
+        # Extract the DB
+        cd trivy-db-cache
+        tar -xvf db.tar.gz -C ~/.cache/trivy/db
+        cd ..
+        rm -rf trivy-db-cache
+
     - name: Generate docker-cis JSON report
       if: ${{ inputs.skip_cis_scan != 'true' && steps.meta.outputs.scan_image != '' }}
       id: cis_json
@@ -327,6 +372,7 @@ runs:
         output_format: json
         output_file: ${{ steps.meta.outputs.cis_json_file }}
         ignore_unfixed: 'true'
+        trivy_db_cache: ${{ inputs.trivy_db_cache }}
 
     - name: upload docker-cis JSON report
       if: ${{ inputs.skip_cis_scan != 'true' && steps.meta.outputs.scan_image != '' }}
@@ -345,3 +391,4 @@ runs:
         output_format: table
         fail_build: 'true'
         ignore_unfixed: 'true'
+        trivy_db_cache: ${{ inputs.trivy_db_cache }}
