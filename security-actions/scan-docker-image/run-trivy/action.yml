@@ -52,11 +52,10 @@ runs:
           --ignore-unfixed
           -o ${{ env.TRIVY_OUTPUT }}
           --exit-code ${{ env.TRIVY_EXIT_CODE }}
-          ${{ inputs.trivy_db_cache != '' && '--cache-dir /root/.cache/trivy --skip-db-update' }}
+          ${{ inputs.trivy_db_cache != '' && '--cache-dir /root/.cache/trivy --skip-db-update' || '' }}
       env:
         TRIVY_FORMAT: ${{ inputs.output_format }}
         TRIVY_OUTPUT: ${{ inputs.output_file }}
         TRIVY_IGNORE_UNFIXED: ${{ inputs.ignore_unfixed }}
         TRIVY_COMPLIANCE: docker-cis-1.6.0
         TRIVY_EXIT_CODE: ${{ inputs.fail_build == 'true' && '1' || '0' }}
-        TRIVY_SKIP_CHECK_UPDATE: 'true'
