@@ -360,6 +360,10 @@ runs:
         # Extract the DB
         cd trivy-db-cache
         tar -xvf db.tar.gz -C ~/.cache/trivy/db
+        echo "DB DIRECTORY LISTING"
+        ls ~/.cache/trivy
+        echo "DB FILES LISTING"
+        ls ~/.cache/trivy/db
         cd ..
         rm -rf trivy-db-cache
 
