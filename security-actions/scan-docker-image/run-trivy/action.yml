@@ -36,9 +36,7 @@ inputs:
   trivy_db_cache:
     description: 'GitHub repository containing Trivy DB cache (format: owner/repo@ref). Database should be named `db.tar.gz` on the default branch.'
     required: false
-  trivy_db_cache_token:
-    description: 'Token for accessing `trivy_db_cache`.'
-    required: false
+  
 
 runs:
   using: composite
