@@ -388,6 +388,5 @@ runs:
       with:
         scan_image: ${{ steps.meta.outputs.scan_image }}
         output_format: table
-        output_file: ${{ steps.meta.outputs.cis_json_file }}
         fail_build: 'true'
         ignore_unfixed: 'true'

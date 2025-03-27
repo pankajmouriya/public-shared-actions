@@ -52,7 +52,7 @@ runs:
           --ignore-unfixed
           -o ${{ env.TRIVY_OUTPUT }}
           --exit-code ${{ env.TRIVY_EXIT_CODE }}
-          ${{ inputs.trivy_db_cache != '' && '--cache-dir /root/.cache/trivy --skip-db-update' || '' }}
+          ${{ inputs.trivy_db_cache != '' && '--cache-dir /root/.cache/trivy --skip-db-update' || '--db-repository 418272760313.dkr.ecr.us-east-1.amazonaws.com/ghcr/aquasecurity/trivy-db:2' }}
       env:
         TRIVY_FORMAT: ${{ inputs.output_format }}
         TRIVY_OUTPUT: ${{ inputs.output_file }}
