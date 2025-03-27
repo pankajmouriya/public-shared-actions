@@ -363,32 +363,6 @@ runs:
         cd ..
         rm -rf trivy-db-cache
 
-    # Issue: https://github.com/aquasecurity/trivy/issues/7938
-    # Fix: Refer https://github.com/aquasecurity/trivy/discussions/7951 usign mirror.gcr.io 
-    # - name: Generate docker-cis JSON report
-    #   if: ${{ inputs.skip_cis_scan != 'true' && steps.meta.outputs.scan_image != '' }}
-    #   id: cis_json
-    #   shell: bash
-    #   run: |
-    #     TRIVY_DB_OPTIONS=""
-        
-    #     if [[ -n "${{ inputs.trivy_db_cache }}" ]]; then
-    #       TRIVY_DB_OPTIONS="--cache-dir ~/.cache/trivy --skip-db-update"
-    #     elif [[ -z "${{ inputs.trivy_db_cache }}" ]]; then
-    #       TRIVY_DB_OPTIONS="--db-repository 418272760313.dkr.ecr.us-east-1.amazonaws.com/ghcr/aquasecurity/trivy-db:2"
-    #     fi
-        
-    #     trivy image ${{ env.input }} \
-    #       ${{ steps.meta.outputs.scan_image }} \
-    #       --compliance ${{ env.compliance }} \
-    #       -f json \
-    #       --ignore-unfixed \
-    #       -o ${{ steps.meta.outputs.cis_json_file }} \
-    #       $TRIVY_DB_OPTIONS
-    #   env:
-    #     compliance: docker-cis-1.6.0
-    #     input: ${{ steps.docker_tar.outputs.files_exists == 'true' && '--input' || '' }}
-
     - name: Generate docker-cis JSON report
       if: ${{ inputs.skip_cis_scan != 'true' && steps.meta.outputs.scan_image != '' }}
       id: cis_json
@@ -414,5 +388,6 @@ runs:
       with:
         scan_image: ${{ steps.meta.outputs.scan_image }}
         output_format: table
+        output_file: ${{ steps.meta.outputs.cis_json_file }}
         fail_build: 'true'
         ignore_unfixed: 'true'
