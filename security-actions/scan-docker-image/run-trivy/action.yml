@@ -51,4 +51,4 @@ runs:
           -f ${{ inputs.output_format }}
           ${{ inputs.ignore_unfixed == 'true' && '--ignore-unfixed' || '' }}
           ${{ inputs.output_file != '' && format('-o {0}', inputs.output_file) || '' }}
-          ${{ inputs.trivy_db_cache != '' && '--cache-dir ~/.cache/trivy --skip-db-update' || '--db-repository 418272760313.dkr.ecr.us-east-1.amazonaws.com/ghcr/aquasecurity/trivy-db:2' }}
+          ${{ inputs.trivy_db_cache != '' && '--cache-dir /root/.cache/trivy --skip-db-update' || '--db-repository 418272760313.dkr.ecr.us-east-1.amazonaws.com/ghcr/aquasecurity/trivy-db:2' }}
