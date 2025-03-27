@@ -41,7 +41,6 @@ runs:
   using: composite
   steps:
     - name: Generate docker-cis report
-      working-directory: ~/.cache/trivy
       uses: docker://418272760313.dkr.ecr.us-east-1.amazonaws.com/k-internal/aquasec/trivy:0.59.0
       with:
         entrypoint: trivy
