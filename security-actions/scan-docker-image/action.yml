@@ -364,6 +364,11 @@ runs:
         ls ~/.cache/trivy
         echo "DB FILES LISTING"
         ls ~/.cache/trivy/db
+        echo "USER IS = "
+        whoami
+        echo "PATH IS ="
+        cd ~/.cache/trivy
+        pwd
         cd ..
         rm -rf trivy-db-cache
 
