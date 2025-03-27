@@ -44,13 +44,19 @@ runs:
       uses: docker://418272760313.dkr.ecr.us-east-1.amazonaws.com/k-internal/aquasec/trivy:0.58.0
       with:
         entrypoint: trivy
-        args:
-          image ${{ inputs.input_tar != '' && '--input ' || '' }}${{ inputs.input_tar != '' && inputs.input_tar || inputs.scan_image }} --debug
+        args: >
+          image 
+          ${{ inputs.input_tar != '' && '--input ' || '' }}${{ inputs.input_tar != '' && inputs.input_tar || inputs.scan_image }}
+          --compliance ${{ env.TRIVY_COMPLIANCE }}
+          -f ${{ env.TRIVY_FORMAT }}
+          --ignore-unfixed
+          -o ${{ env.TRIVY_OUTPUT }}
+          --exit-code ${{ env.TRIVY_EXIT_CODE }}
+          ${{ inputs.trivy_db_cache != '' && '--cache-dir /root/.cache/trivy --skip-db-update' || '--db-repository 418272760313.dkr.ecr.us-east-1.amazonaws.com/ghcr/aquasecurity/trivy-db:2' }}
       env:
         TRIVY_FORMAT: ${{ inputs.output_format }}
         TRIVY_OUTPUT: ${{ inputs.output_file }}
         TRIVY_IGNORE_UNFIXED: ${{ inputs.ignore_unfixed }}
         TRIVY_COMPLIANCE: docker-cis-1.6.0
         TRIVY_EXIT_CODE: ${{ inputs.fail_build == 'true' && '1' || '0' }}
-        TRIVY_DB_REPOSITORY: 418272760313.dkr.ecr.us-east-1.amazonaws.com/ghcr/aquasecurity/trivy-db:2
         TRIVY_SKIP_CHECK_UPDATE: 'true'
