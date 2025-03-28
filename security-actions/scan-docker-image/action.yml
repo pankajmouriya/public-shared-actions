@@ -354,6 +354,7 @@ runs:
       if: inputs.trivy_db_cache != ''
       shell: bash
       run: |
+        echo "naiya: ${{ steps.parse_cache.outputs.ref }}"
         # Create Trivy cache directory
         mkdir -p ~/.cache/trivy/db
         
