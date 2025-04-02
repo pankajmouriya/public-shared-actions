@@ -89,8 +89,8 @@ runs:
     #     registry: 418272760313.dkr.ecr.us-east-1.amazonaws.com
     #     username: ${{ steps.creds.outputs.aws-access-key-id }}
     #     password: ${{ steps.creds.outputs.aws-secret-access-key }}
-    - name: Set up Docker
-      uses: docker/setup-docker-action@v4
+    # - name: Set up Docker
+    #   uses: docker/setup-docker-action@v4
     
     - name: SAST Scan
       # TODO: Define a tagging mechanism for dependency manager version updates 
