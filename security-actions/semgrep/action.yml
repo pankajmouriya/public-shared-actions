@@ -91,13 +91,12 @@ runs:
     #     password: ${{ steps.creds.outputs.aws-secret-access-key }}
     
     - name: SAST Scan
-      if: inputs.registry_mode == 'ecr_iam'
       uses: ./security-actions/semgrep/run-semgrep
       id: semgrep
       continue-on-error: true
       with:
-        image: 'aws_ecr'
-        imageURL: '${{ steps.login-ecr.outputs.registry }}/k-internal'
+        imageURL: ${{ steps.login-ecr.outputs.registry }}
+
 
     # Upload grype cve reports
     - name: Upload Semgrep SARIF to Workflow
