@@ -27,8 +27,9 @@ inputs:
     required: true
     type: choice
     options:
-    - 'dockerhub'
+    - 'dockerhub_pat'
     - 'ecr_iam'
+    - 'dockerhub'
   dockerhub_username:
     description: 'Username for DockerHub - required if using dockerhub_pat mode)'
     required: false
@@ -45,7 +46,7 @@ runs:
   using: 'composite'
   steps:
     - name: Login to DockerHub
-      if: inputs.registry_mode == 'dockerhub'
+      if: inputs.registry_mode == 'dockerhub_pat'
       uses: docker/login-action@3d58c274f17dffee475a5520cbe67f0a882c4dbb
       with:
         username: ${{ inputs.dockerhub_username }}
@@ -71,6 +72,7 @@ runs:
       shell: bash
       run: |
         case "${{ inputs.registry_mode }}" in
+          dockerhub) echo "IMAGE=semgrep/semgrep@sha256:0cd75960cfec2215ff734a4f6379bbbb6edb82de0c24593dd0a70ec65e9860a9" >> $GITHUB_ENV ;;
           dockerhub_pat) echo "IMAGE=semgrep/semgrep@sha256:0cd75960cfec2215ff734a4f6379bbbb6edb82de0c24593dd0a70ec65e9860a9" >> $GITHUB_ENV ;;
           ecr_iam) echo "IMAGE=${{ steps.login-ecr.outputs.registry }}/k-internal/semgrep/semgrep@sha256:0cd75960cfec2215ff734a4f6379bbbb6edb82de0c24593dd0a70ec65e9860a9" >> $GITHUB_ENV ;;
           *) echo "Invalid registry mode"; exit 1 ;;
