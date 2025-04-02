@@ -27,7 +27,7 @@ inputs:
     required: true
     type: choice
     options:
-    - 'dockerhub_pat'
+    - 'dockerhub'
     - 'ecr_iam'
   dockerhub_username:
     description: 'Username for DockerHub - required if using dockerhub_pat mode)'
@@ -45,7 +45,7 @@ runs:
   using: 'composite'
   steps:
     - name: Login to DockerHub
-      if: inputs.registry_mode == 'dockerhub_pat'
+      if: inputs.registry_mode == 'dockerhub'
       uses: docker/login-action@3d58c274f17dffee475a5520cbe67f0a882c4dbb
       with:
         username: ${{ inputs.dockerhub_username }}

@@ -36,7 +36,7 @@ jobs:
           additional_config: '--config p/rust'
           codeql_upload: false
           fail_on_findings: false
-          registry_mode: 'ecr_iam'
-          ecr_iam_role: ${{ secrets.AWS_IAM_ROLE_PANKAJMOURIYA_SELF }}
+          registry_mode: 'dockerhub'
+          # ecr_iam_role: ${{ secrets.AWS_IAM_ROLE_PANKAJMOURIYA_SELF }}
 
             
