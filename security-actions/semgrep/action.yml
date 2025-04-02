@@ -49,7 +49,7 @@ runs:
       uses: docker/login-action@3d58c274f17dffee475a5520cbe67f0a882c4dbb
       with:
         username: ${{ inputs.dockerhub_username }}
-        password: ${{ input.dockerhub_pat }}
+        password: ${{ inputs.dockerhub_pat }}
       
     
     - name: Authenticate to AWS
