@@ -100,12 +100,12 @@ runs:
         echo "Running Docker CLI Image"
         docker run -v "$PWD:/src" -w /src semgrep/semgrep:1.114.0 semgrep ci --config auto --sarif -o semgrep_${{ github.sha }}.sarif --no-autofix ${{ inputs.additional_config }}
 
-    - name: SAST Scan
-      uses: ./security-actions/semgrep/run-semgrep
-      id: semgrep
-      continue-on-error: true
-      with:
-        imageURL: ${{ steps.login-ecr.outputs.registry }}
+    # - name: SAST Scan
+    #   uses: ./security-actions/semgrep/run-semgrep
+    #   id: semgrep
+    #   continue-on-error: true
+    #   with:
+    #     imageURL: ${{ steps.login-ecr.outputs.registry }}
 
 
     # Upload grype cve reports
