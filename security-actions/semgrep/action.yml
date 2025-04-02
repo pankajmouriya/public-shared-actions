@@ -55,19 +55,16 @@ runs:
     - name: Authenticate to AWS
       if: inputs.registry_mode == 'ecr_iam'
       uses: aws-actions/configure-aws-credentials@v4
-      id: creds
+      id: aws_creds
       with:
         aws-region: us-east-1
         role-to-assume: ${{ inputs.ecr_iam_role }}
         role-session-name: GitHub_to_AWS_via_FederatedOIDC
 
-    - name: Login to ECR
+    - name: Login to Amazon ECR
       if: inputs.registry_mode == 'ecr_iam'
-      uses: docker/login-action@v3
-      with:
-        registry: {{ inputs.aws_creds.output }}
-        username: ${{ steps.creds.outputs.aws-access-key-id }}
-        password: ${{ steps.creds.outputs.aws-secret-access-key }}
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
 
     # - name: SAST Scan
     #   # TODO: Define a tagging mechanism for dependency manager version updates 
