@@ -71,8 +71,8 @@ runs:
       shell: bash
       run: |
         case "${{ inputs.registry_mode }}" in
-          dockerhub_pat) echo "IMAGE=semgrep/semgrep:1.114.0" >> $GITHUB_ENV ;;
-          ecr_iam) echo "IMAGE=${{ steps.login-ecr.outputs.registry }}/k-internal/semgrep:1.114.0" >> $GITHUB_ENV ;;
+          dockerhub_pat) echo "IMAGE=semgrep/semgrep@sha256:0cd75960cfec2215ff734a4f6379bbbb6edb82de0c24593dd0a70ec65e9860a9" >> $GITHUB_ENV ;;
+          ecr_iam) echo "IMAGE=${{ steps.login-ecr.outputs.registry }}/k-internal/semgrep/semgrep@sha256:0cd75960cfec2215ff734a4f6379bbbb6edb82de0c24593dd0a70ec65e9860a9" >> $GITHUB_ENV ;;
           *) echo "Invalid registry mode"; exit 1 ;;
         esac
     
