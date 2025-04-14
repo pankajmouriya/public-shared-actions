@@ -2,13 +2,21 @@
     {
       "baseImage": {
         "name": "semgrep/semgrep",
-        "tag": "1.114.0"
+        "tag": "1.114.0",
+        "hosts": [
+            "418272760313.dkr.ecr.us-east-1.amazonaws.com/k-internal/",
+            "index.docker.io"
+        ]
       }
     },
     {
       "baseImage": {
         "name": "semgrep/semgrep",
-        "tag": "1.113.0"
+        "tag": "1.113.0",
+        "hosts": [
+            "418272760313.dkr.ecr.us-east-1.amazonaws.com/k-internal/",
+            "index.docker.io"
+        ]
       }
     }
   ]

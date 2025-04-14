@@ -30,15 +30,6 @@ inputs:
     - 'dockerhub_pat'
     - 'ecr_iam'
     - 'dockerhub'
-  dockerhub_username:
-    description: 'Username for DockerHub - required if using dockerhub_pat mode)'
-    required: false
-  dockerhub_pat:
-    description: 'Personal Access Token for DockerHub - required if using dockerhub_pat mode)'
-    required: false
-  ecr_iam_role:
-    description: 'IAM Role ARN for ECR authentication - required if using ecr_iam mode)'
-    required: false
   image:
     description: "Which Semgrep image name to use (must be in scripts/image-info.json)"
     required: true
@@ -62,19 +53,19 @@ runs:
         password: ${{ inputs.dockerhub_pat }}
       
     
-    - name: Authenticate to AWS
-      if: inputs.registry_mode == 'ecr_iam'
-      uses: aws-actions/configure-aws-credentials@v4
-      id: aws_creds
-      with:
-        aws-region: us-east-1
-        role-to-assume: ${{ inputs.ecr_iam_role }}
-        role-session-name: GitHub_to_AWS_via_FederatedOIDC
+    # - name: Authenticate to AWS
+    #   if: inputs.registry_mode == 'ecr_iam'
+    #   uses: aws-actions/configure-aws-credentials@v4
+    #   id: aws_creds
+    #   with:
+    #     aws-region: us-east-1
+    #     role-to-assume: ${{ inputs.ecr_iam_role }}
+    #     role-session-name: GitHub_to_AWS_via_FederatedOIDC
 
-    - name: Login to Amazon ECR
-      if: inputs.registry_mode == 'ecr_iam'
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
+    # - name: Login to Amazon ECR
+    #   if: inputs.registry_mode == 'ecr_iam'
+    #   id: login-ecr
+    #   uses: aws-actions/amazon-ecr-login@v2
 
     - name: Setup Node
       uses: actions/setup-node@v4
