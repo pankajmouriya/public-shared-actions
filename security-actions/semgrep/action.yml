@@ -46,7 +46,9 @@ inputs:
     description: "Which Semgrep tag to use (must be in scripts/image-info.json)"
     required: true
 
-
+outputs:
+  validated_image:
+    description: "Fully qualified Docker image reference"
     
 
 runs:
@@ -74,12 +76,29 @@ runs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
 
-    - name: Test for valid image and its tag
-      id: image-script
-      uses: ./scripts
+    - name: Setup Node
+      uses: actions/setup-node@v4
       with:
-        image: ${{ inputs.image }}
-        tag: ${{ inputs.tag }}
+        node-version: '20'
+
+    - name: Validate image + tag
+      id: validate_image
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE/scripts
+        result=$(./build-args.js --image=${{ inputs.image }} --tag=${{ inputs.tag }})
+        echo "$result"
+
+        echo "$result" | grep '^IMAGE=' | sed 's/IMAGE=//' > image.txt
+        validatedImage=$(cat image.txt)
+
+        echo "validated_image=$validatedImage" >> $GITHUB_OUTPUT
+    # - name: Test for valid image and its tag
+    #   id: image-script
+    #   uses: ./scripts
+    #   with:
+    #     image: ${{ inputs.image }}
+    #     tag: ${{ inputs.tag }}
 
     - name: SAST Scan
       # TODO: Define a tagging mechanism for dependency manager version updates 
