@@ -107,7 +107,7 @@ runs:
       shell: bash
       run: |
         echo "Running Docker CLI Image"
-        docker run -v "$PWD:/src" -w /src ${{ steps.image-script.outputs.validated_image }} semgrep ci --config auto --sarif -o semgrep_${{ github.sha }}.sarif --no-autofix ${{ inputs.additional_config }}
+        docker run -v "$PWD:/src" -w /src ${{ steps.validate_image.outputs.validated_image }} semgrep ci --config auto --sarif -o semgrep_${{ github.sha }}.sarif --no-autofix ${{ inputs.additional_config }}
       continue-on-error: true
 
 
