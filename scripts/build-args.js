@@ -91,6 +91,15 @@ if (!chosenHost) {
   process.exit(1);
 }
 
+if (chosenHost.includes('ECR_PLACEHOLDER')) {
+  const ecrRegistry = process.env.ECR_REGISTRY; // e.g. 123456789012.dkr.ecr.us-east-1.amazonaws.com
+  if (!ecrRegistry) {
+    console.error("Error: ECR_PLACEHOLDER chosen but ECR_REGISTRY env var not set.");
+    process.exit(1);
+  }
+  chosenHost = chosenHost.replace('ECR_PLACEHOLDER', ecrRegistry);
+}
+
 // Construct the final Docker reference
 const finalImage = `${chosenHost}/${name}:${tag}`;
 

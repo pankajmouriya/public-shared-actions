@@ -4,7 +4,7 @@
         "name": "semgrep/semgrep",
         "tag": "1.114.0",
         "hosts": [
-            "${{ steps.login-ecr.outputs.registry }}/k-internal",
+            "ECR_PLACEHOLDER/k-internal",
             "index.docker.io"
         ]
       }
@@ -14,7 +14,7 @@
         "name": "semgrep/semgrep",
         "tag": "1.113.0",
         "hosts": [
-            "${{ steps.login-ecr.outputs.registry }}/k-internal",
+            "ECR_PLACEHOLDER/k-internal",
             "index.docker.io"
         ]
       }
