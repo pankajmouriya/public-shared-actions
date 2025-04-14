@@ -49,7 +49,7 @@ jobs:
           additional_config: '--config p/rust'
           codeql_upload: false
           fail_on_findings: false
-          registry_mode: 'ecr_iam'
+          registry_mode: 'dockerhub'
           # dockerhub_username: 'r00trwx'
           # dockerhub_pat: ${{ secrets.DOCKERHUB_PAT_2_READ }}
           image: "semgrep/semgrep" 
