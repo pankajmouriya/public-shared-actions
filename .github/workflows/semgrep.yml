@@ -40,5 +40,7 @@ jobs:
           dockerhub_username: 'r00trwx'
           #ecr_iam_role: ${{ secrets.AWS_IAM_ROLE_PANKAJMOURIYA_SELF }}
           dockerhub_pat: ${{ secrets.DOCKERHUB_PAT_2_READ }}
+          image: "semgrep/semgrep"   # Must exist in image-info.json
+          tag: "1.114.0"  
 
             

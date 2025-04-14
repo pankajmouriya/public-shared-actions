@@ -1,0 +1,15 @@
+[
+    {
+      "baseImage": {
+        "name": "semgrep/semgrep",
+        "tag": "1.114.0"
+      }
+    },
+    {
+      "baseImage": {
+        "name": "semgrep/semgrep",
+        "tag": "1.113.0"
+      }
+    }
+  ]
+  

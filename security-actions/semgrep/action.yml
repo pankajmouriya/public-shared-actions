@@ -39,7 +39,14 @@ inputs:
   ecr_iam_role:
     description: 'IAM Role ARN for ECR authentication - required if using ecr_iam mode)'
     required: false
-    
+  image:
+    description: "Which Semgrep image name to use (must be in scripts/image-info.json)"
+    required: true
+  tag:
+    description: "Which Semgrep tag to use (must be in scripts/image-info.json)"
+    required: true
+
+
     
 
 runs:
@@ -67,26 +74,21 @@ runs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
 
-    - name: Set Image Variable
-      id: image_selection
-      shell: bash
-      run: |
-        case "${{ inputs.registry_mode }}" in
-          dockerhub) echo "IMAGE=semgrep/semgrep@sha256:0cd75960cfec2215ff734a4f6379bbbb6edb82de0c24593dd0a70ec65e9860a9" >> $GITHUB_ENV ;;
-          dockerhub_pat) echo "IMAGE=semgrep/semgrep@sha256:0cd75960cfec2215ff734a4f6379bbbb6edb82de0c24593dd0a70ec65e9860a9" >> $GITHUB_ENV ;;
-          ecr_iam) echo "IMAGE=${{ steps.login-ecr.outputs.registry }}/k-internal/semgrep/semgrep@sha256:0cd75960cfec2215ff734a4f6379bbbb6edb82de0c24593dd0a70ec65e9860a9" >> $GITHUB_ENV ;;
-          *) echo "Invalid registry mode"; exit 1 ;;
-        esac
-    
+    - name: Test for valid image and its tag
+      id: image-script
+      uses: ./scripts
+      with:
+        image: ${{ inputs.image }}
+        tag: ${{ inputs.tag }}
+
     - name: SAST Scan
       # TODO: Define a tagging mechanism for dependency manager version updates 
       # Also for controlled rollouts
       shell: bash
       run: |
         echo "Running Docker CLI Image"
-        docker run -v "$PWD:/src" -w /src $IMAGE semgrep ci --config auto --sarif -o semgrep_${{ github.sha }}.sarif --no-autofix ${{ inputs.additional_config }}
+        docker run -v "$PWD:/src" -w /src ${{ steps.image-script.outputs.validated_image }} semgrep ci --config auto --sarif -o semgrep_${{ github.sha }}.sarif --no-autofix ${{ inputs.additional_config }}
       continue-on-error: true
-
 
 
     # Upload grype cve reports

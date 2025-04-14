@@ -1,0 +1,30 @@
+name: "Image Validation"
+description: "Composite action that validates both image name and tag"
+
+outputs:
+  validated_image:
+    description: "Fully qualified Docker image reference"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Validate image + tag
+      id: validate_image
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE/scripts
+        result=$(./build-args.js --image=${{ inputs.image }} --tag=${{ inputs.tag }})
+        echo "$result"
+
+        # result is something like: IMAGE=index.docker.io/library/semgrep/semgrep:1.114.0
+        # Parse that into an environment variable
+        echo "$result" | grep '^IMAGE=' | sed 's/IMAGE=//' > image.txt
+        validatedImage=$(cat image.txt)
+
+        # Set it as an output from this step
+        echo "validated_image=$validatedImage" >> $GITHUB_OUTPUT
