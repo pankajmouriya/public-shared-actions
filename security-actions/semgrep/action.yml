@@ -45,32 +45,12 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    
-    # - name: Login to DockerHub
-    #   if: inputs.registry_mode == 'dockerhub_pat'
-    #   uses: docker/login-action@3d58c274f17dffee475a5520cbe67f0a882c4dbb
-    #   with:
-    #     username: ${{ inputs.dockerhub_username }}
-    #     password: ${{ inputs.dockerhub_pat }}
-      
-    
-    # - name: Authenticate to AWS
-    #   if: inputs.registry_mode == 'ecr_iam'
-    #   uses: aws-actions/configure-aws-credentials@v4
-    #   id: aws_creds
-    #   with:
-    #     aws-region: us-east-1
-    #     role-to-assume: ${{ inputs.ecr_iam_role }}
-    #     role-session-name: GitHub_to_AWS_via_FederatedOIDC
 
-    # - name: Login to Amazon ECR
-    #   if: inputs.registry_mode == 'ecr_iam'
-    #   id: login-ecr
-    #   uses: aws-actions/amazon-ecr-login@v2
     - name: Set ECR registry env
       if: inputs.registry_mode == 'ecr_iam'
+      shell: bash
       run: echo "ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}" >> $GITHUB_ENV
-      
+
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
