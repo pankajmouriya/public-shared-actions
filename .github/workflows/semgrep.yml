@@ -37,6 +37,7 @@ jobs:
           codeql_upload: false
           fail_on_findings: false
           registry_mode: 'dockerhub_pat'
+          dockerhub_username: 'r00trwx'
           #ecr_iam_role: ${{ secrets.AWS_IAM_ROLE_PANKAJMOURIYA_SELF }}
           dockerhub_pat: ${{ secrets.DOCKERHUB_PAT_2_READ }}
 
