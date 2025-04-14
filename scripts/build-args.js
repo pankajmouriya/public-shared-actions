@@ -76,7 +76,7 @@ switch (registryMode) {
   case 'ecr':
   case 'ecr_iam':
     // Look for something containing "amazonaws.com"
-    chosenHost = hosts.find(h => h.includes('amazonaws.com'));
+    chosenHost = hosts.find(h => h.includes('login-ecr'));
     break;
 
   default:
