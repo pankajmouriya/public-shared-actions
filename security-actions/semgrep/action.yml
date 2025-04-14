@@ -46,11 +46,6 @@ runs:
   using: 'composite'
   steps:
 
-    - name: Set ECR registry env
-      if: inputs.registry_mode == 'ecr_iam'
-      shell: bash
-      run: echo "ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}" >> $GITHUB_ENV
-
     - name: Setup Node
       uses: actions/setup-node@v4
       with:

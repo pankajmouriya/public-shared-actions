@@ -44,6 +44,10 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Set ECR registry env
+        if: steps.login-ecr.conclusion == 'success'
+        run: echo "ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}" >> $GITHUB_ENV
+      
       - uses: ./security-actions/semgrep
         with:
           additional_config: '--config p/rust'
