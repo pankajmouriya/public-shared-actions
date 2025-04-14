@@ -86,6 +86,7 @@ runs:
       shell: bash
       run: |
         cd $GITHUB_WORKSPACE/scripts
+        chmod +x ./build-args.js
         result=$(./build-args.js --image=${{ inputs.image }} --tag=${{ inputs.tag }})
         echo "$result"
 
