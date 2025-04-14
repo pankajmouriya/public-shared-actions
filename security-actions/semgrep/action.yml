@@ -90,7 +90,7 @@ runs:
         result=$(./build-args.js --image=${{ inputs.image }} --tag=${{ inputs.tag }} --info-file=${{ github.action_path }}/image-index.json)
         echo "Result value sparrow = $result"
         
-        echo "Snipped Value for sparrow = $result" | sed 's/IMAGE=//' > image.txt
+        echo "$result" | sed 's/IMAGE=//' > image.txt
         validatedImage=$(cat image.txt)
 
         echo "validated_image=$validatedImage" >> $GITHUB_OUTPUT
