@@ -1,14 +1,12 @@
 [
     {
       "baseImage": {
-        "host": "",
         "name": "semgrep/semgrep",
         "tag": "1.114.0"
       }
     },
     {
       "baseImage": {
-        "host": "",
         "name": "semgrep/semgrep",
         "tag": "1.113.0"
       }

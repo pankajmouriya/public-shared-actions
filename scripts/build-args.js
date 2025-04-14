@@ -55,7 +55,7 @@ if (!match) {
   process.exit(1);
 }
 
-const { host, name, tag } = match.baseImage;
-const finalImage = `${host}/${name}:${tag}`;
+const { name, tag } = match.baseImage;
+const finalImage = `${name}:${tag}`;
 
 console.log(`IMAGE=${finalImage}`);
