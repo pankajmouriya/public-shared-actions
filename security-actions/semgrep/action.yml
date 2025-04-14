@@ -87,7 +87,7 @@ runs:
       run: |
         cd $GITHUB_WORKSPACE/scripts
         chmod +x ./build-args.js
-        result=$(./build-args.js --image=${{ inputs.image }} --tag=${{ inputs.tag }})
+        result=$(./build-args.js --image=${{ inputs.image }} --tag=${{ inputs.tag }}) --info-file=${{ github.action_path }}/image-index.json
         echo "$result"
 
         echo "$result" | grep '^IMAGE=' | sed 's/IMAGE=//' > image.txt
