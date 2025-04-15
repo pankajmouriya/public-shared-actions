@@ -112,7 +112,7 @@ if (chosenHost.includes('ECR_REGISTRY_URI')) {
 }
 
 // Construct the final Docker reference
-const finalImage = `${chosenHost}/${name}:${tag}`;
+const finalImage = `${chosenHost}/${name}@${tag}`;
 
 // Print the result for GitHub Actions (IMAGE=...)
 console.log(`IMAGE=${finalImage}`);
