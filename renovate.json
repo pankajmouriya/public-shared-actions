@@ -8,7 +8,7 @@
             "security-actions/semgrep/action.yml"
         ],
         "matchStrings": [
-          "semgrep==(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+          "semgrep==v?(?<currentValue>\\d+\\.\\d+\\.\\d+)"
         ],
         "depNameTemplate": "semgrep",
         "datasourceTemplate": "pypi"
