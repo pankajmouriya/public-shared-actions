@@ -55,7 +55,9 @@ runs:
       id: validate_image
       shell: bash
       run: |
-        cd $GITHUB_WORKSPACE/image-validation
+        echo "list down all the files"
+        ls $GITHUB_WORKSPACE/imageValidation
+        cd $GITHUB_WORKSPACE/imageValidation
         chmod +x ./validate-image.js
         result=$(./validate-image.js --registry-mode="${{ inputs.registry_mode }}" --image=${{ inputs.image }} --tag=${{ inputs.tag }} --info-file=${{ github.action_path }}/image-index.json)
         echo "Result value sparrow = $result"
