@@ -56,8 +56,8 @@ runs:
       shell: bash
       run: |
         cd $GITHUB_WORKSPACE/scripts
-        chmod +x ./build-args.js
-        result=$(./build-args.js --registry-mode="${{ inputs.registry_mode }}" --image=${{ inputs.image }} --tag=${{ inputs.tag }} --info-file=${{ github.action_path }}/image-index.json)
+        chmod +x ./validate-image.js
+        result=$(./validate-image.js --registry-mode="${{ inputs.registry_mode }}" --image=${{ inputs.image }} --tag=${{ inputs.tag }} --info-file=${{ github.action_path }}/image-index.json)
         echo "Result value sparrow = $result"
         
         echo "$result" | sed 's/IMAGE=//' > image.txt

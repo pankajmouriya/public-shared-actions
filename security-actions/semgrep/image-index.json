@@ -4,7 +4,7 @@
         "name": "semgrep/semgrep",
         "tag": "1.114.0",
         "hosts": [
-            "ECR_PLACEHOLDER/k-internal",
+            "ECR_REGISTRY_URI/k-internal",
             "index.docker.io"
         ]
       }
@@ -14,7 +14,7 @@
         "name": "semgrep/semgrep",
         "tag": "1.113.0",
         "hosts": [
-            "ECR_PLACEHOLDER/k-internal",
+            "ECR_REGISTRY_URI/k-internal",
             "index.docker.io"
         ]
       }
