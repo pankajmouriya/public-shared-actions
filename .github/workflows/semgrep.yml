@@ -57,6 +57,6 @@ jobs:
           # dockerhub_username: 'r00trwx'
           # dockerhub_pat: ${{ secrets.DOCKERHUB_PAT_2_READ }}
           image: "semgrep/semgrep" 
-          tag: "1.114.0"  
+          tag: "1.113.0"  
 
             

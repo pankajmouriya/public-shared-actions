@@ -8,16 +8,6 @@
             "index.docker.io"
         ]
       }
-    },
-    {
-      "baseImage": {
-        "name": "semgrep/semgrep",
-        "tag": "1.113.0",
-        "hosts": [
-            "ECR_REGISTRY_URI/k-internal",
-            "index.docker.io"
-        ]
-      }
     }
   ]
   
