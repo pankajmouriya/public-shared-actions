@@ -26,7 +26,8 @@ runs:
   using: 'composite'
   steps:
     - name: Setup Python 
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@3605726ffa6ef7750b99ff496e5b88248b414e26
+      
 
     - name: Install pip dependencies  
       shell: bash
