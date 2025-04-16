@@ -25,17 +25,20 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Installed Semgrep
+    - name: Setup Python 
+      uses: actions/setup-python@v5
+
+    - name: Install pip dependencies  
       shell: bash
       run: |
-        python3 -m pip install --upgrade semgrep==v1.114.0
-        semgrep --version
+        pip install -r requirements.txt
 
     - name: SAST Scan
       id: semgrep
       continue-on-error: true
       shell: bash
       run: |
+        semgrep --version
         semgrep ci --config auto --sarif -o semgrep_${{github.sha}}.sarif --no-autofix ${{ inputs.additional_config }}
 
     # Upload grype cve reports
