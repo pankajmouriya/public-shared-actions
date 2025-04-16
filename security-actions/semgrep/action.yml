@@ -25,15 +25,16 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Setup Python 
+    - name: Install Python 
       uses: actions/setup-python@3605726ffa6ef7750b99ff496e5b88248b414e26
-      
+      with:
+        python-version: '3.12'
+        cache: 'pip'
 
-    - name: Install pip dependencies  
+    - name: Install dependencies
       shell: bash
-      run: |
-        pip install -r requirements.txt
-
+      run: pip install -r requirements.txt
+        
     - name: SAST Scan
       id: semgrep
       continue-on-error: true
