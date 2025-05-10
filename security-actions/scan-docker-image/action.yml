@@ -328,7 +328,7 @@ runs:
 
     - name: Checkout Trivy DB cache
       if: inputs.trivy_db_cache != ''
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      uses: actions/checkout@85e6279cec87321a52edac9c87bce653a07cf6c2
       with:
         repository: ${{ steps.parse_cache.outputs.repository }}
         ref: ${{ steps.parse_cache.outputs.ref }}
