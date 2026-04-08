@@ -138,7 +138,7 @@ runs:
         github-token: ${{ inputs.github-token }}
 
     - name: Check SBOM files existence
-      uses: andstor/file-existence-action@076e0072799f4942c8bc574a82233e1e4d13e9d6 # v3
+      uses: andstor/file-existence-action@558493d6c74bf472d87c84eab196434afc2fa029 # v3
       id: sbom_report
       with:
         files: "${{ steps.meta.outputs.sbom_spdx_file }}, ${{ steps.meta.outputs.sbom_cyclonedx_file }}"
@@ -252,7 +252,7 @@ runs:
 
     - name: Check vulnerability analysis report existence
       if: ${{ steps.grype_db_check_updates.outputs.GRYPE_DB_UPDATE_STATUS == 0 }} # Run only if DB is available on the runner
-      uses: andstor/file-existence-action@076e0072799f4942c8bc574a82233e1e4d13e9d6 # v3
+      uses: andstor/file-existence-action@558493d6c74bf472d87c84eab196434afc2fa029 # v3
       id: grype_report
       with:
         files: "${{ steps.grype_analysis_sarif.outputs.sarif }}, ${{ steps.grype_analysis_json.outputs.json }}"
@@ -303,7 +303,7 @@ runs:
 
     - name: Check docker OCI tar existence
       if: ${{ steps.meta.outputs.scan_image != '' }}
-      uses: andstor/file-existence-action@076e0072799f4942c8bc574a82233e1e4d13e9d6 # v3
+      uses: andstor/file-existence-action@558493d6c74bf472d87c84eab196434afc2fa029 # v3
       id: docker_tar
       with:
         files: "${{ steps.meta.outputs.scan_image }}"
