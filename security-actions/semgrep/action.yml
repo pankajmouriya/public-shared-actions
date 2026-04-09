@@ -28,7 +28,7 @@ runs:
     - name: Install Python 
       uses: actions/setup-python@3605726ffa6ef7750b99ff496e5b88248b414e26
       with:
-        python-version: '3.12'
+        python-version: '3.14'
 
     - name: Install dependencies
       shell: bash
